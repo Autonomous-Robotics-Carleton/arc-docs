@@ -3,6 +3,7 @@
   "pages": [
     "conventional-branch",
     "conventional-commits",
-    "conventional-comments"
+    "conventional-comments",
+    "clean-code"
   ]
 }
