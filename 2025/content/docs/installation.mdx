@@ -1,0 +1,504 @@
+---
+title: Installation
+description: npm install still running… please hold.
+icon: SquareTerminal
+---
+
+import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Callout } from "fumadocs-ui/components/callout";
+
+<Callout type="warn" title="Windows users: Install WSL first">
+If you're on Windows, you'll need to install Windows Subsystem for Linux (WSL) before proceeding. See the WSL installation section below.
+</Callout>
+
+## Windows Subsystem for Linux (WSL)
+
+<Callout type="info" title="MacOS users can skip this section">
+MacOS is UNIX-based, so you can jump straight to installing [package managers](#install-package-managers).
+</Callout>
+
+Install [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+<Accordions>
+<Accordion title="What's WSL?">
+Introduced by Microsoft in 2016, WSL allows people to run a real Linux kernel inside Windows.
+
+Before WSL, people had to:
+- Use a virtual machine, slow.
+- Dual boot on the same machine, tedious and risks bricking the machine.
+- Replace their main OS with Linux altogether, scary but the best option.
+
+[Learn more](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux).
+</Accordion>
+<Accordion title="Why use WSL instead of switching to Linux?">
+WSL allows you to:
+- have the best of both worlds by running Linux and Windows simultaneously.
+- Use Linux tools and commands directly from Windows without switching operating systems.
+- Run various development environments smoothly without leaving your Windows OS.
+
+You can still access the Windows filesystem from Linux and vice versa and avoid the hassle of dual booting.
+
+[Why Dual booting on the same drive is not worth it](https://www.makeuseof.com/tag/risks-dual-booting-windows-linux-operating-systems/).
+</Accordion>
+  <Accordion title="But im not comfortable working from the shell">
+    Although it is better working from the shell. WSL can run in the VS Code terminal, or any other
+    IDE terminal. Rather than cloning the repo on your Windows filesystem, you'd be
+    cloning it in a directory of your choice in the GNU/Linux OS.
+
+    You can still access the windows filesystem from WSL and vice versa, browsing through the Linux
+    directories with the Windows file explorer graphically.
+  </Accordion>
+</Accordions>
+
+<div className="steps">
+  <div className="step">
+  Enable [essential Windows features](https://winaero.com/bash-ubuntu-windows-10-fall-creators-update/) to enable WSL.
+    
+    <kbd> Win+R</kbd> to open Run dialog, then:
+
+    ```sh title="Run"
+    optionalfeatures # opens 'Windows Features' Dialog
+    ```
+
+Turn on the following features if not already enabled.
+
+![Image](https://github.com/user-attachments/assets/763299a8-420d-4e0c-9b34-af9878bedc9c)
+
+Restart your machine for these changes to take effect.
+
+After restart, launch 'Microsoft Store', and search 'Linux'.
+
+![Image](https://github.com/user-attachments/assets/d24cfe59-b879-4162-a47a-5136e163ba03)
+
+Choose a [distro](https://github.com/sirredbeard/awesome-wsl) to install. We recommend [Ubuntu](https://ubuntu.com/desktop/wsl) (non-LTS).
+
+  </div>
+
+  <div className="step">
+    Create your UNIX account.
+
+    Keep your password short and simple for now. You'll need to type it often to install packages.
+    <Callout type="warn" title="Don't forget your UNIX username & password">
+    You'll be locked out and will have to re-install WSL.
+    </Callout>
+
+      ```
+      Enter new UNIX username: user
+      New password:
+      Retype new password:
+      passwd: password updated successfully
+      Installation successful!
+      To run a command as administrator (user "root"), use "sudo <command>".
+      See "man sudo_root" for details.
+
+      Welcome to Ubuntu 24.04.1 LTS (GNU/Linux 5.15.167.4-microsoft-standard-WSL2 x86_64)
+
+
+      Documentation:  https://help.ubuntu.com/
+      Management:     https://landscape.canonical.com/
+      Support:        https://ubuntu.com/pro
+
+      System information as of Tue Dec 17 15:29:19 EST 2024
+
+      System load:  0.16                Processes:             49
+      Usage of /:   0.1% of 1006.85GB   Users logged in:       0
+      Memory usage: 5%                  IPv4 address for eth0: 172.19.92.39
+      Swap usage:   0%
+
+
+      This message is shown once a day. To disable it please create the
+      /home/user/.hushlogin file.
+      user@MSI:~$
+      ```
+
+  </div>
+
+  <div className="step">
+  <kbd> Ctrl+ ,</kbd> to open settings, and set the default profile to Ubuntu.
+  
+![Image](https://github.com/user-attachments/assets/2ddce07d-f405-456a-aecf-7da0b5dfd33e)
+
+Close the terminal and re-open it with:
+    <kbd> Win+X, I</kbd>
+
+You should see:
+![Image](https://github.com/user-attachments/assets/88b3a94b-a2e8-494a-a63d-ecf8b379926c)
+
+Update the system:
+    ```sh title="Terminal"
+  sudo apt update && sudo apt upgrade -y
+    ```
+  </div>
+</div>
+
+## Install Package Managers
+
+<div className="steps">
+<div className="step">
+
+Clean existing system files. You can always re-install these later.
+
+    ```sh title="Terminal"
+    sudo rm -rf "$(which npm node pnpm)" "$(where npm node pnpm)"
+    ```
+
+
+### [Pnpm](https://pnpm.io)
+
+```sh title="Terminal"
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
+
+<Callout type="info" title="Why we use pnpm">
+We use **pnpm** instead of **npm** because it is faster, more efficient with disk space, and enforces stricter dependency management.  
+Unlike npm or yarn, pnpm uses a content-addressable store and hard links, which means packages are downloaded once and reused across all projects — saving both time and storage.  
+It also prevents phantom dependencies by ensuring that only explicitly listed packages are accessible, leading to more reliable builds.  
+
+👉 Want to dive deeper? Check out the [official pnpm documentation](https://pnpm.io/motivation).
+</Callout>
+
+
+Re-open the terminal once installation is complete.
+
+Set [Node.js](https://nodejs.org/en) version.
+
+```sh title="Terminal"
+pnpm env use --global 22.17.1  # latest LTS at time of writing
+```
+<Callout type="warn" title="Use the latest Node.js LTS">
+We recommend using the latest **LTS** version of Node.js.  
+Check [nodejs.org](https://nodejs.org/en/blog/release/v24.9.0) for the latest version before installing.
+</Callout>
+
+
+</div>
+
+ <div className="step">
+
+## Configure [GitHub CLI](https://github.com/cli/cli#installation)
+
+
+Create a GitHub account if you don't already have one.
+
+```sh title="Terminal"
+ # Login with your GitHub account.
+ nix-env -iA nixpkgs.gh; gh auth login -p=https -w
+```
+
+![Image](https://github.com/user-attachments/assets/0821355c-3622-427d-9c23-eca20f3ae310)
+
+Provide the following answers if prompted.
+```
+? Authenticate Git with your GitHub credentials? [Use arrows] to move, type to filter]
+> Yes
+
+# Your one-time code will be different.
+! First copy your one-time code: 95i2-DAE6
+Press Enter to open github.com in your browser...
+```
+Navigate to the github link shown if you see this and paste in the code as usual.
+
+Return to the terminal when you see the `Congratulations, you're all set!` screen.
+![Image](https://github.com/user-attachments/assets/aad9a7b5-07d7-4968-a306-c44b18cb3f14)
+
+You should see the following:
+```
+✔ Authentication complete.
+- gh config set -h github.com git_protocol https
+✔ Configured git protocol
+✔ Logged in as yourgithubusername
+```
+      </div>
+
+  <div className="step">
+Fork and Clone [Repository](https://github.com/cuhacking/hackathon).
+
+```sh title="Terminal"
+gh repo fork cuhacking/2025 --clone; # Fork and clone repo
+cd 2025; # Navigate into directory
+pnpm ri; # Clean install packages, and set up .env
+pnpm exec playwright install --with-deps # Install Playwright Browsers for E2E Testing
+```
+
+Open VSCode (Or your preferred editor):
+          ```sh title="Shell"
+          # Allow all hosts and trust the authors when you see a popup
+          # And install all recommended extensions
+          code .
+          ```
+  </div>
+
+  <div className="step">
+
+  ## Run projects
+
+⭐ With this new setup you no longer have to memorize and look up commands.
+
+   ```sh title="Shell"
+   pnpm dev
+   ```
+- Move panes & tabs: <kbd>Alt</kbd> + <kbd>left/right/up/down</kbd>
+- Toggle popup panes <kbd>Alt</kbd> + <kbd>F</kbd>
+
+Screenshots are in [Features](/features).
+
+<Accordions>
+  <Accordion title="Legacy Steps">
+<Tabs groupId="projects" items={['Devtools', 'Documentation', 'Axiom (Back-End)', 'Portal', 'Website', 'Slides']} persist>
+
+<Tab value="Devtools">
+<Tabs groupId="devtools-nx-commands" items={['Project Graph', 'Database Studio', 'Linter Config Inspector']} persist>
+  <Tab value="Project Graph">
+```sh title="Shell"
+pnpm graph
+```
+  </Tab>
+  <Tab value="Database Studio">
+```sh title="Shell"
+pnpm db
+```
+Visit [local.drizzle.studio](https://local.drizzle.studio) for Drizzle SQL Visualizer.
+
+Visit [localhost:5000](localhost:5000) for Drizzle Schema Visualizer.
+  </Tab>
+  <Tab value="Linter Config Inspector">
+```sh title="Shell"
+pnpm inspect
+```
+  </Tab>
+  </Tabs>
+  </Tab>
+
+  <Tab value="Documentation">
+<Tabs groupId="devtools-nx-commands" items={['Docs Site', 'Architecture', 'Storybook']} persist>
+  <Tab value="Docs Site">
+    <Tabs groupId="docs-site-project-nx-commands" items={['dev', 'build', 'start']} persist>
+      <Tab value="dev">
+        ```sh title="Shell"
+        pnpm nx dev docs --verbose
+        ```
+      </Tab>
+      <Tab value="build">
+        ```sh title="Shell"
+        pnpm nx build docs --verbose
+        ```
+      </Tab>
+      <Tab value="start">
+        ```sh title="Shell"
+        pnpm nx start docs --verbose
+        ```
+      </Tab>
+    </Tabs>
+  </Tab>
+  <Tab value="Architecture">
+    <Tabs groupId="architecture-project-nx-commands" items={['dev', 'build', 'start']} persist>
+      <Tab value="dev">
+        ```sh title="Shell (Shortcut)"
+        pnpm arch
+        ```
+        ```sh title="Shell"
+        pnpm nx dev arch --verbose
+        ```
+      </Tab>
+      <Tab value="build">
+        ```sh title="Shell"
+        pnpm nx build arch --verbose
+        ```
+      </Tab>
+      <Tab value="start">
+        ```sh title="Shell"
+        pnpm nx start arch --verbose
+        ```
+      </Tab>
+    </Tabs>
+  </Tab>
+
+  <Tab value="Storybook">
+        ```sh title="Shell"
+        pnpm nx storybook --verbose
+        ```
+  </Tab>
+</Tabs>
+</Tab>
+
+  <Tab value="Website">
+    <Tabs groupId="website-project-nx-commands" items={['dev', 'build', 'start']} persist>
+      <Tab value="dev">
+        ```sh title="Shell"
+        pnpm nx dev website --verbose
+        ```
+      </Tab>
+      <Tab value="build">
+        ```sh title="Shell"
+        pnpm nx build website --verbose
+        ```
+      </Tab>
+      <Tab value="start">
+        ```sh title="Shell"
+        pnpm nx start website --verbose
+        ```
+      </Tab>
+    </Tabs>
+  </Tab>
+
+  <Tab value="Portal">
+    <Tabs
+      groupId="portal-project-nx-commands"
+      items={["dev", "build", "start"]}
+      persist
+    >
+      <Tab value="dev">
+
+        ```sh title="Shell"
+        pnpm nx dev portal --verbose
+        ```
+      </Tab>
+
+      <Tab value="build">
+        ```sh title="Shell"
+        pnpm nx build portal --verbose
+        ```
+      </Tab>
+
+      <Tab value="start">
+        ```sh title="Shell"
+        pnpm nx start portal --verbose
+        ```
+      </Tab>
+
+    </Tabs>
+  </Tab>
+
+  <Tab value="Slides">
+    <Tabs groupId="slides-project-nx-commands" items={['dev', 'build', 'export']} persist>
+      <Tab value="dev">
+        ```sh title="Shell"
+        pnpm nx dev slides --verbose
+        ```
+      </Tab>
+      <Tab value="build">
+        ```sh title="Shell"
+        pnpm nx build slides --verbose
+        ```
+      </Tab>
+      <Tab value="export">
+        ```sh title="Shell"
+        pnpm nx export slides --verbose
+        ```
+      </Tab>
+      </Tabs>
+      </Tab>
+
+  <Tab value="Axiom (Back-End)">
+    <Tabs groupId="axiom-project-nx-commands" items={['dev', 'build', 'start']} persist>
+      <Tab value="dev">
+        ```sh title="Shell (Shortcut)"
+        pnpm axiom
+        ```
+        ```sh title="Shell"
+        pnpm nx dev axiom --verbose
+        ```
+      </Tab>
+      <Tab value="build">
+        ```sh title="Shell"
+        pnpm nx build axiom --verbose
+        ```
+      </Tab>
+      <Tab value="start">
+        ```sh title="Shell"
+        pnpm nx start axiom --verbose
+        ```
+      </Tab>
+      </Tabs>
+      The home route will have a 404 error.
+      Navigate to `/admin` route.
+      </Tab>
+</Tabs>
+</Accordion>
+</Accordions>
+
+  <img src="https://nx.dev/documentation/shared/images/run-target-syntax.svg" />
+
+<Accordions>
+  <Accordion title="How do I run multiple projects at once?">
+Run all development servers.
+```sh title="Shell"
+pnpm nx run-many -t dev --verbose
+```
+
+..or add `-p` to filter specific projects
+
+```sh title="Shell"
+pnpm nx run-many -t dev -p website --verbose
+```
+
+`--verbose` provides detailed error logs.
+  </Accordion>
+  <Accordion title="Where are these commands defined?">
+Targets can be defined in the `package.json` or `projects.json`.
+
+```json doc-gen:file
+{
+  "file": "../../package.json",
+  "codeblock": true
+}
+```
+
+Use [Nx Console](https://nx.dev/nx-console) to integrate with editors.
+
+<img src="https://nx.dev/documentation/shared/images/nx-console/nx-console-screenshot.webp" />
+
+</Accordion>
+</Accordions>
+
+  </div>
+  <div className="step">
+You'll see the url(s) in your terminal for the project(s) you're running, simply paste those in to your browser address bar.
+
+    For example you may see:
+
+```sh title="Shell"
+╰─ pnpm nx dev docs --verbose                                                                                                                   ─╯
+
+> nx run docs:dev
+
+> next dev
+
+[MDX] initialized map file
+   ▲ Next.js 15.0.3
+   - Local:        http://localhost:3000
+   - Experiments (use with caution):
+     · turbo
+
+ ✓ Starting...
+   automatically enabled Fast Refresh for 1 custom loader
+ ✓ Ready in 1790ms
+```
+
+<Callout type="warn" title="URLs may change as the project matures.">
+
+If multiple apps are running or another server using that network port, your URLs may be different from someone else's and that's okay.
+
+Always look at your terminal for the correct URL.
+</Callout>
+
+</div>
+</div>
+
+
+## What's next?
+
+Explore the [Tech Stack](/tech-stack) to learn what powers our meta-framework.
+
+### Get Involved
+
+Looking to contribute? If you've already read the [Overview](/) then head on over to the [Contribution Guidelines](/contribution-guidelines/getting-started).
+
+### Connect With Us
+
+Connect on our channels and with the cuHacking team to ask questions, get help and keep up to date with the latest events.
+
+- ⭐ [Star us on GitHub](https://github.com/cuhacking/2025) to show your support.
+- Join our [Discord Community](https://discord.com/invite/h2cQqF9aZf).
+- Follow us on [Social Media](https://linktr.ee/cuhacking_).
