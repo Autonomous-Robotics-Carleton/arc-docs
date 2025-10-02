@@ -13,7 +13,11 @@ const config = {
       },
       {
         protocol: 'https',
-        hostname: 'user-attachments.githubusercontent.com', // GitHub attachments often resolve here
+        hostname: 'user-attachments.githubusercontent.com', // GitHub issue/PR attachments
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com', // GitHub avatars (fixes your error)
       },
     ],
   },
