@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "fumadocs-core": "15.7.12",
+    "fumadocs-docgen": "^3.0.1",
     "fumadocs-mdx": "11.10.0",
     "fumadocs-ui": "15.7.12",
     "next": "^15.5.4",
+    "pnpm": "^10.17.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
