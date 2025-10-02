@@ -5,6 +5,18 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'user-attachments.githubusercontent.com', // GitHub attachments often resolve here
+      },
+    ],
+  },
 };
 
 export default withMDX(config);
