@@ -179,14 +179,36 @@ Check [nodejs.org](https://nodejs.org/en/blog/release/v24.9.0) for the latest ve
 ## Configure [GitHub CLI](https://github.com/cli/cli#installation)
 
 
-Create a GitHub account if you don't already have one.
+[Create a GitHub account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) if you don't already have one.
+
+<Tabs items={['Ubuntu(WSL)','MacOS']}>
+<Tab value="Ubuntu(WSL)">
+```sh title="Terminal"
+  # Install GitHub CLI (gh) on Ubuntu/Debian
+  sudo apt update
+  sudo apt install gh -y
+```
+</Tab>
+<Tab value="MacOS">
+  ```sh title="Terminal"
+  # Install GitHub CLI (gh) on MacOS
+  brew install gh
+  ```
+</Tab>
+</Tabs>
+
 
 ```sh title="Terminal"
- # Login with your GitHub account.
- nix-env -iA nixpkgs.gh; gh auth login -p=https -w
+  # Login with your GitHub account.
+  gh auth login
 ```
 
-![Image](https://github.com/user-attachments/assets/0821355c-3622-427d-9c23-eca20f3ae310)
+![Image](/images/ghauth.png)
+
+Navigate to the github link shown and paste in the code as usual.
+
+![Image](/images/ghotp.png)
+
 
 Provide the following answers if prompted.
 ```
@@ -197,301 +219,33 @@ Provide the following answers if prompted.
 ! First copy your one-time code: 95i2-DAE6
 Press Enter to open github.com in your browser...
 ```
-Navigate to the github link shown if you see this and paste in the code as usual.
+
 
 Return to the terminal when you see the `Congratulations, you're all set!` screen.
 ![Image](https://github.com/user-attachments/assets/aad9a7b5-07d7-4968-a306-c44b18cb3f14)
 
-You should see the following:
-```
-✔ Authentication complete.
-- gh config set -h github.com git_protocol https
-✔ Configured git protocol
-✔ Logged in as yourgithubusername
-```
       </div>
 
   <div className="step">
-Fork and Clone [Repository](https://github.com/cuhacking/hackathon).
+Fork and Clone [Repository](https://github.com/Autonomous-Robotics-Carleton/arc-docs).
 
 ```sh title="Terminal"
-gh repo fork cuhacking/2025 --clone; # Fork and clone repo
-cd 2025; # Navigate into directory
-pnpm ri; # Clean install packages, and set up .env
-pnpm exec playwright install --with-deps # Install Playwright Browsers for E2E Testing
+# Fork and clone the ARC docs repo to your GitHub account, then open it
+gh repo fork Autonomous-Robotics-Carleton/arc-docs --clone
+cd arc-docs
+pnpm dev # start the dev server
 ```
 
-Open VSCode (Or your preferred editor):
+Open [VSCode](https://code.visualstudio.com) (Or your preferred editor):
           ```sh title="Shell"
           # Allow all hosts and trust the authors when you see a popup
           # And install all recommended extensions
           code .
           ```
   </div>
-
-  <div className="step">
-
-  ## Run projects
-
-⭐ With this new setup you no longer have to memorize and look up commands.
-
-   ```sh title="Shell"
-   pnpm dev
-   ```
-- Move panes & tabs: <kbd>Alt</kbd> + <kbd>left/right/up/down</kbd>
-- Toggle popup panes <kbd>Alt</kbd> + <kbd>F</kbd>
-
-Screenshots are in [Features](/features).
-
-<Accordions>
-  <Accordion title="Legacy Steps">
-<Tabs groupId="projects" items={['Devtools', 'Documentation', 'Axiom (Back-End)', 'Portal', 'Website', 'Slides']} persist>
-
-<Tab value="Devtools">
-<Tabs groupId="devtools-nx-commands" items={['Project Graph', 'Database Studio', 'Linter Config Inspector']} persist>
-  <Tab value="Project Graph">
-```sh title="Shell"
-pnpm graph
-```
-  </Tab>
-  <Tab value="Database Studio">
-```sh title="Shell"
-pnpm db
-```
-Visit [local.drizzle.studio](https://local.drizzle.studio) for Drizzle SQL Visualizer.
-
-Visit [localhost:5000](localhost:5000) for Drizzle Schema Visualizer.
-  </Tab>
-  <Tab value="Linter Config Inspector">
-```sh title="Shell"
-pnpm inspect
-```
-  </Tab>
-  </Tabs>
-  </Tab>
-
-  <Tab value="Documentation">
-<Tabs groupId="devtools-nx-commands" items={['Docs Site', 'Architecture', 'Storybook']} persist>
-  <Tab value="Docs Site">
-    <Tabs groupId="docs-site-project-nx-commands" items={['dev', 'build', 'start']} persist>
-      <Tab value="dev">
-        ```sh title="Shell"
-        pnpm nx dev docs --verbose
-        ```
-      </Tab>
-      <Tab value="build">
-        ```sh title="Shell"
-        pnpm nx build docs --verbose
-        ```
-      </Tab>
-      <Tab value="start">
-        ```sh title="Shell"
-        pnpm nx start docs --verbose
-        ```
-      </Tab>
-    </Tabs>
-  </Tab>
-  <Tab value="Architecture">
-    <Tabs groupId="architecture-project-nx-commands" items={['dev', 'build', 'start']} persist>
-      <Tab value="dev">
-        ```sh title="Shell (Shortcut)"
-        pnpm arch
-        ```
-        ```sh title="Shell"
-        pnpm nx dev arch --verbose
-        ```
-      </Tab>
-      <Tab value="build">
-        ```sh title="Shell"
-        pnpm nx build arch --verbose
-        ```
-      </Tab>
-      <Tab value="start">
-        ```sh title="Shell"
-        pnpm nx start arch --verbose
-        ```
-      </Tab>
-    </Tabs>
-  </Tab>
-
-  <Tab value="Storybook">
-        ```sh title="Shell"
-        pnpm nx storybook --verbose
-        ```
-  </Tab>
-</Tabs>
-</Tab>
-
-  <Tab value="Website">
-    <Tabs groupId="website-project-nx-commands" items={['dev', 'build', 'start']} persist>
-      <Tab value="dev">
-        ```sh title="Shell"
-        pnpm nx dev website --verbose
-        ```
-      </Tab>
-      <Tab value="build">
-        ```sh title="Shell"
-        pnpm nx build website --verbose
-        ```
-      </Tab>
-      <Tab value="start">
-        ```sh title="Shell"
-        pnpm nx start website --verbose
-        ```
-      </Tab>
-    </Tabs>
-  </Tab>
-
-  <Tab value="Portal">
-    <Tabs
-      groupId="portal-project-nx-commands"
-      items={["dev", "build", "start"]}
-      persist
-    >
-      <Tab value="dev">
-
-        ```sh title="Shell"
-        pnpm nx dev portal --verbose
-        ```
-      </Tab>
-
-      <Tab value="build">
-        ```sh title="Shell"
-        pnpm nx build portal --verbose
-        ```
-      </Tab>
-
-      <Tab value="start">
-        ```sh title="Shell"
-        pnpm nx start portal --verbose
-        ```
-      </Tab>
-
-    </Tabs>
-  </Tab>
-
-  <Tab value="Slides">
-    <Tabs groupId="slides-project-nx-commands" items={['dev', 'build', 'export']} persist>
-      <Tab value="dev">
-        ```sh title="Shell"
-        pnpm nx dev slides --verbose
-        ```
-      </Tab>
-      <Tab value="build">
-        ```sh title="Shell"
-        pnpm nx build slides --verbose
-        ```
-      </Tab>
-      <Tab value="export">
-        ```sh title="Shell"
-        pnpm nx export slides --verbose
-        ```
-      </Tab>
-      </Tabs>
-      </Tab>
-
-  <Tab value="Axiom (Back-End)">
-    <Tabs groupId="axiom-project-nx-commands" items={['dev', 'build', 'start']} persist>
-      <Tab value="dev">
-        ```sh title="Shell (Shortcut)"
-        pnpm axiom
-        ```
-        ```sh title="Shell"
-        pnpm nx dev axiom --verbose
-        ```
-      </Tab>
-      <Tab value="build">
-        ```sh title="Shell"
-        pnpm nx build axiom --verbose
-        ```
-      </Tab>
-      <Tab value="start">
-        ```sh title="Shell"
-        pnpm nx start axiom --verbose
-        ```
-      </Tab>
-      </Tabs>
-      The home route will have a 404 error.
-      Navigate to `/admin` route.
-      </Tab>
-</Tabs>
-</Accordion>
-</Accordions>
-
-  <img src="https://nx.dev/documentation/shared/images/run-target-syntax.svg" />
-
-<Accordions>
-  <Accordion title="How do I run multiple projects at once?">
-Run all development servers.
-```sh title="Shell"
-pnpm nx run-many -t dev --verbose
-```
-
-..or add `-p` to filter specific projects
-
-```sh title="Shell"
-pnpm nx run-many -t dev -p website --verbose
-```
-
-`--verbose` provides detailed error logs.
-  </Accordion>
-  <Accordion title="Where are these commands defined?">
-Targets can be defined in the `package.json` or `projects.json`.
-
-```json doc-gen:file
-{
-  "file": "../../package.json",
-  "codeblock": true
-}
-```
-
-Use [Nx Console](https://nx.dev/nx-console) to integrate with editors.
-
-<img src="https://nx.dev/documentation/shared/images/nx-console/nx-console-screenshot.webp" />
-
-</Accordion>
-</Accordions>
-
-  </div>
-  <div className="step">
-You'll see the url(s) in your terminal for the project(s) you're running, simply paste those in to your browser address bar.
-
-    For example you may see:
-
-```sh title="Shell"
-╰─ pnpm nx dev docs --verbose                                                                                                                   ─╯
-
-> nx run docs:dev
-
-> next dev
-
-[MDX] initialized map file
-   ▲ Next.js 15.0.3
-   - Local:        http://localhost:3000
-   - Experiments (use with caution):
-     · turbo
-
- ✓ Starting...
-   automatically enabled Fast Refresh for 1 custom loader
- ✓ Ready in 1790ms
-```
-
-<Callout type="warn" title="URLs may change as the project matures.">
-
-If multiple apps are running or another server using that network port, your URLs may be different from someone else's and that's okay.
-
-Always look at your terminal for the correct URL.
-</Callout>
-
-</div>
 </div>
 
-
-## What's next?
-
-Explore the [Tech Stack](/tech-stack) to learn what powers our meta-framework.
-
-### Get Involved
+## Get Involved
 
 Looking to contribute? If you've already read the [Overview](/) then head on over to the [Contribution Guidelines](/contribution-guidelines/getting-started).
 
@@ -499,6 +253,6 @@ Looking to contribute? If you've already read the [Overview](/) then head on ove
 
 Connect on our channels and with the cuHacking team to ask questions, get help and keep up to date with the latest events.
 
-- ⭐ [Star us on GitHub](https://github.com/cuhacking/2025) to show your support.
-- Join our [Discord Community](https://discord.com/invite/h2cQqF9aZf).
-- Follow us on [Social Media](https://linktr.ee/cuhacking_).
+- ⭐ [Star us on GitHub](https://github.com/Autonomous-Robotics-Carleton/arc-docs) to show your support.
+- Join our [Discord Community](https://discord.gg/bRWPQXv6zk).
+- Follow us on [Social Media](https://www.instagram.com/arcarleton/?hl=en).
