@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import logo from '@/public/ARC_Logo-github.jpg';
+import logo from '@/public/images/ARC_Logo-github.jpg';
 
 
 /**
