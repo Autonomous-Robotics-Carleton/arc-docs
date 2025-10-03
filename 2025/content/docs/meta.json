@@ -4,7 +4,7 @@
     "--- Showcase ---",
     "index",
     "installation",
-    "knowledge-base",
+
 
     "--- Contribution Guidelines ---",
     "get-started",
@@ -23,6 +23,10 @@
     
     "--- Scripts ---",
     "jetson_discord_notifier",
-    "StartVNC_mdx_fixed"
+    "StartVNC_mdx_fixed",
+
+    "--- Reference ---",
+    "knowledge-base",
+    "linux-cheat"
   ]
 }
