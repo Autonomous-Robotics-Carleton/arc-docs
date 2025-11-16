@@ -39,3 +39,150 @@ This repository contains:
    ```bash
    git clone https://github.com/arcarleton/arc-docs.git
    cd arc-docs
+---
+
+All documentation source code lives inside the **`2025/` directory**.
+
+---
+
+# 🔧 Local Development (for Contributors)
+
+Contributors **do NOT need Docker**.
+Docker is used only in production via CI/CD.
+
+Everything you need is inside the **2025/** project.
+
+---
+
+## 📌 Requirements
+
+Install:
+
+* **Node.js 20**
+* **pnpm** (via Corepack)
+* **Git**
+
+Enable pnpm if needed:
+
+```bash
+corepack enable
+```
+
+---
+
+## 🛠 Install Dependencies
+
+```bash
+cd 2025
+pnpm install
+```
+
+This uses `pnpm-lock.yaml` to ensure all contributors use identical dependency versions.
+
+---
+
+## ▶️ Run the Dev Server
+
+```bash
+pnpm dev
+```
+
+Site is now live at:
+
+```
+http://localhost:3000
+```
+
+---
+
+## 🧪 Lint + Build
+
+```bash
+pnpm lint
+pnpm build
+```
+
+---
+## 2️⃣ Make Your Changes
+
+Docs live in:
+
+```
+2025/content/
+```
+
+UI + logic:
+
+```
+2025/app/
+2025/lib/
+```
+
+---
+
+## 3️⃣ Test Locally
+
+```bash
+pnpm install
+pnpm dev
+```
+---
+
+# 🧪 CI/CD Pipeline
+
+This repository uses **GitHub Actions + GitHub Container Registry (GHCR)**.
+
+### 🔹 For every Pull Request:
+
+* Installs dependencies
+* Lints the docs
+* Builds the site
+* Tests Docker build
+
+### 🔹 For every merge to `main`:
+
+* Builds the production Docker image
+* Pushes it to GHCR:
+
+  * `ghcr.io/autonomous-robotics-carleton/arc-docs:latest`
+  * `ghcr.io/autonomous-robotics-carleton/arc-docs:<commit-sha>`
+* ARC infrastructure auto-deploys the new version to **arcarleton.ca** via Watchtower
+
+Contributors never touch Docker.
+
+---
+
+# 🏗 Project Structure
+
+```
+arc-docs/
+│
+├── 2025/                 # All documentation source code
+│   ├── app/              # Next.js app directory
+│   ├── content/          # MDX documentation pages
+│   ├── public/           # Static assets
+│   ├── lib/              # Utility functions
+│   ├── next.config.ts
+│   ├── tailwind.config.ts
+│   └── package.json
+│
+├── .github/workflows/    # CI & Docker build pipelines
+└── README.md
+```
+
+---
+
+# 📘 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+# 🎉 Thanks for Contributing!
+
+Whether you’re fixing typos, writing docs, or creating new tutorials —
+**your work helps drive ARC forward.**
+
+If you have questions, open an issue or reach out to the ARC Team!
+
+```
