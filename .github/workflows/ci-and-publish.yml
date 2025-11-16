@@ -26,13 +26,17 @@ jobs:
       - name: Enable corepack (pnpm)
         run: corepack enable
 
+      # All pnpm commands run in the 2025 app folder
       - name: Install deps
+        working-directory: ./2025
         run: pnpm install --frozen-lockfile
 
       - name: Lint
+        working-directory: ./2025
         run: pnpm lint
 
       - name: Build
+        working-directory: ./2025
         run: pnpm build
 
       # Only publish Docker image on pushes to main (not PRs)
@@ -48,7 +52,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./2025
           push: true
           tags: |
             ghcr.io/autonomous-robotics-carleton/arc-docs:latest
