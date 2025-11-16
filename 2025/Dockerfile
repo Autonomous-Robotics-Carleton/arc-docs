@@ -5,8 +5,8 @@ WORKDIR /app
 # Enable corepack to get pnpm
 RUN corepack enable
 
-# Copy lockfile + manifest
-COPY package.json pnpm-lock.yaml ./
+# Copy files needed for install + postinstall
+COPY package.json pnpm-lock.yaml source.config.ts ./
 
 # Install dependencies (runs postinstall: fumadocs-mdx)
 RUN pnpm install --frozen-lockfile
