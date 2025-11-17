@@ -94,6 +94,42 @@ http://localhost:3000
 ```
 
 ---
+## ⚠️Common Issue: `pnpm env use` Not Working
+some contributors will see this error:
+
+```bash
+ERR_PNPM_CANNOT_MANAGE_NODE
+Unable to manage Node.js because pnpm was not installed using the standalone installation script.
+```
+This happens because:
+
+If pnpm was installed using apt / dnf / brew / the system package manager,
+→ pnpm cannot manage Node versions.
+
+pnpm env use <version> only works when pnpm is installed via its standalone installer.
+
+To fix this, contributors have two options:
+
+### ✅ Option 1 — Easiest: Use NVM (Recommended)
+
+If you have pnpm installed via your OS (e.g., Fedora, Ubuntu), use NVM to control Node versions.
+
+```bash
+# Install NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.nvm/nvm.sh
+
+# Install Node.js 20 (required for this repo)
+nvm install 20
+nvm use 20
+
+```
+Verify 
+```bash
+node -v   # should show v20.x.x
+
+```
+---
 
 ## 🧪 Lint + Build
 
