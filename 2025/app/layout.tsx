@@ -6,7 +6,15 @@ import type { Metadata } from 'next';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: { default: "ARC Docs", template: "%s — ARC Docs" },
+  metadataBase: new URL("https://docs.arcarleton.ca"),
+
+  title: {
+    default: "ARC Carleton Docs",
+    template: "%s — ARC Carleton Docs",
+  },
+
+  description:
+    "Official documentation for ARC (Autonomous Robotics Carleton) at Carleton University. Hardware, software, robotics, development guides, and team docs.",
 
   icons: {
     icon: [
