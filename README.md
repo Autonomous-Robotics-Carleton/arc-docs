@@ -1,4 +1,6 @@
-# 🚗 ARC Docs — Autonomous Robotics Carleton  
+# 🚗 ARC Docs — Autonomous Robotics Carleton
+
+auto assign chaange test
 
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/Autonomous-Robotics-Carleton/arc-docs?color=blue&style=for-the-badge" />
@@ -17,28 +19,31 @@
 ---
 
 Welcome to the **documentation hub** for **ARC (Autonomous Robotics Carleton)**!  
-This project is dedicated to documenting everything about building, configuring, and maintaining our **autonomous car** as we prepare for competitions.  
+This project is dedicated to documenting everything about building, configuring, and maintaining our **autonomous car** as we prepare for competitions.
 
-We’re keeping this project **fully open source**, so current and future members — and the wider robotics community — can learn, contribute, and grow with us.  
-
----
-
-## 📖 What’s Inside  
-
-This repository contains:  
-- ✅ **Setup guides** — step-by-step instructions for getting the ARC car up and running.  
-- 🛠 **Configuration docs** — details on software, hardware, and environment settings.  
-- 📚 **Knowledge base** — collected learnings and resources as the project evolves.  
-- 🏎 **Race preparation logs** — documenting our progress on the road to competition.  
+We’re keeping this project **fully open source**, so current and future members — and the wider robotics community — can learn, contribute, and grow with us.
 
 ---
 
-## 🚀 Getting Started  
+## 📖 What’s Inside
 
-1. Clone this repository:  
+This repository contains:
+
+- ✅ **Setup guides** — step-by-step instructions for getting the ARC car up and running.
+- 🛠 **Configuration docs** — details on software, hardware, and environment settings.
+- 📚 **Knowledge base** — collected learnings and resources as the project evolves.
+- 🏎 **Race preparation logs** — documenting our progress on the road to competition.
+
+---
+
+## 🚀 Getting Started
+
+1. Clone this repository:
    ```bash
    git clone https://github.com/arcarleton/arc-docs.git
    cd arc-docs
+   ```
+
 ---
 
 All documentation source code lives inside the **`2025/` directory**.
@@ -58,9 +63,9 @@ Everything you need is inside the **2025/** project.
 
 Install:
 
-* **Node.js 20**
-* **pnpm** (via Corepack)
-* **Git**
+- **Node.js 20**
+- **pnpm** (via Corepack)
+- **Git**
 
 Enable pnpm if needed:
 
@@ -103,6 +108,7 @@ pnpm build
 ```
 
 ---
+
 ## 2️⃣ Make Your Changes
 
 Docs live in:
@@ -126,6 +132,7 @@ UI + logic:
 pnpm install
 pnpm dev
 ```
+
 ---
 
 # 🧪 CI/CD Pipeline
@@ -134,19 +141,19 @@ This repository uses **GitHub Actions + GitHub Container Registry (GHCR)**.
 
 ### 🔹 For every Pull Request:
 
-* Installs dependencies
-* Lints the docs
-* Builds the site
-* Tests Docker build
+- Installs dependencies
+- Lints the docs
+- Builds the site
+- Tests Docker build
 
 ### 🔹 For every merge to `main`:
 
-* Builds the production Docker image
-* Pushes it to GHCR:
+- Builds the production Docker image
+- Pushes it to GHCR:
+  - `ghcr.io/autonomous-robotics-carleton/arc-docs:latest`
+  - `ghcr.io/autonomous-robotics-carleton/arc-docs:<commit-sha>`
 
-  * `ghcr.io/autonomous-robotics-carleton/arc-docs:latest`
-  * `ghcr.io/autonomous-robotics-carleton/arc-docs:<commit-sha>`
-* ARC infrastructure auto-deploys the new version to **arcarleton.ca** via Watchtower
+- ARC infrastructure auto-deploys the new version to **arcarleton.ca** via Watchtower
 
 Contributors never touch Docker.
 
@@ -184,5 +191,7 @@ Whether you’re fixing typos, writing docs, or creating new tutorials —
 **your work helps drive ARC forward.**
 
 If you have questions, open an issue or reach out to the ARC Team!
+
+```
 
 ```
