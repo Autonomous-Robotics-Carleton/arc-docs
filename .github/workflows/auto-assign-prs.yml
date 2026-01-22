@@ -12,11 +12,11 @@ jobs:
   auto-assign:
     runs-on: ubuntu-latest
     steps:
-      - name: Auto-assign PR
+      - name: Auto-assign PR to author
         uses: pozil/auto-assign-issue@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          assignees: anakafeel
+          assignees: ${{ github.actor }}
           numOfAssignee: 1
           allowSelfAssign: true
           abortIfPreviousAssignees: false
