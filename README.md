@@ -1,6 +1,5 @@
 # 🚗 ARC Docs — Autonomous Robotics Carleton
 
-auto assign chaange test
 
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/Autonomous-Robotics-Carleton/arc-docs?color=blue&style=for-the-badge" />
