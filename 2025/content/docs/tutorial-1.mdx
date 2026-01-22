@@ -21,7 +21,7 @@ Welcome to your first F1TENTH tutorial! This version includes embedded good codi
 ## 1. Building and Running Inside Docker
 
 ### Sample Dockerfile
-
+```
 Dockerfile
 FROM ros:humble
 RUN apt update && apt install -y python3-colcon-common-extensions
@@ -29,10 +29,11 @@ WORKDIR /ros2_ws
 COPY . /ros2_ws
 RUN . /opt/ros/humble/setup.sh && colcon build
 CMD ["bash"]
+```
 
 Containerizing ROS 2 Projects
 
-> 📘 Learn more: [Dockerizing ROS 2 Projects](https://docs.ros.org/en/rolling/How-To-Guides/Docker.html)
+> 📘 Learn more: [Dockerizing ROS 2 Projects](https://docs.ros.org/en/rolling/How-To-Guides.html)
 
 ---
 
