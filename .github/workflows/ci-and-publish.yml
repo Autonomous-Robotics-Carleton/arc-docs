@@ -2,9 +2,9 @@ name: CI & Docker Publish
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test-and-build:
@@ -25,7 +25,6 @@ jobs:
       - name: Enable corepack (pnpm)
         run: corepack enable
 
-      # All pnpm commands run in the 2025 app folder
       - name: Install deps
         working-directory: ./2025
         run: pnpm install --frozen-lockfile
@@ -38,7 +37,6 @@ jobs:
         working-directory: ./2025
         run: pnpm build
 
-      # Only publish Docker image on pushes to main (not PRs)
       - name: Log in to GHCR
         if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
@@ -56,3 +54,12 @@ jobs:
           tags: |
             ghcr.io/autonomous-robotics-carleton/arc-docs:latest
             ghcr.io/autonomous-robotics-carleton/arc-docs:${{ github.sha }}
+
+      # New step to trigger the server update
+      - name: Trigger Watchtower Update
+        if: github.ref == 'refs/heads/main'
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://api.mycses.ca/arcarleton/docs/update"
+          method: "GET"
+          customHeaders: '{"Authorization": "Bearer ${{ secrets.WATCHTOWER_TOKEN }}"}'
