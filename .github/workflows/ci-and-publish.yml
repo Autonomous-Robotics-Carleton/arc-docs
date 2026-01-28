@@ -2,9 +2,9 @@ name: CI & Docker Publish
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test-and-build:
@@ -56,3 +56,12 @@ jobs:
           tags: |
             ghcr.io/autonomous-robotics-carleton/arc-docs:latest
             ghcr.io/autonomous-robotics-carleton/arc-docs:${{ github.sha }}
+
+      - name: Trigger Watchtower Update
+        if: github.ref == 'refs/heads/main'
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://api.mycses.ca/arcarleton/docs/update"
+          method: "GET"
+          timeout: 30000 # Sets timeout to 30s to allow for image pull
+          customHeaders: '{"Authorization": "Bearer ${{ secrets.WATCHTOWER_TOKEN }}"}'
