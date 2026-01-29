@@ -260,6 +260,114 @@ If you'd rather not expose your real email, you can use GitHub's private "norepl
 
   </div>
 
+  <div className="step" id="install-lazygit">
+### Install lazygit
+
+[lazygit](https://github.com/jesseduffield/lazygit) is a terminal UI for git that makes commits, branches, and rebases much easier.
+
+<Tabs items={['macOS', 'Ubuntu/Debian', 'Fedora/RHEL', 'Arch', 'Windows']}>
+<Tab value="macOS">
+```sh title="Terminal"
+brew install lazygit
+```
+</Tab>
+<Tab value="Ubuntu/Debian">
+```sh title="Terminal"
+sudo apt install lazygit
+```
+For the latest version, grab a binary from [lazygit releases](https://github.com/jesseduffield/lazygit/releases).
+</Tab>
+<Tab value="Fedora/RHEL">
+```sh title="Terminal"
+sudo dnf copr enable atim/lazygit -y && sudo dnf install lazygit
+```
+</Tab>
+<Tab value="Arch">
+```sh title="Terminal"
+sudo pacman -S lazygit
+```
+</Tab>
+<Tab value="Windows">
+```sh title="PowerShell"
+scoop install lazygit
+# or
+choco install lazygit
+```
+</Tab>
+</Tabs>
+
+If your distro isn't listed, check the [official releases page](https://github.com/jesseduffield/lazygit/releases).
+
+  </div>
+
+  <div className="step" id="github-ssh-setup">
+### GitHub SSH Setup (Recommended for Pushing)
+
+If you plan to push code using `git push` or lazygit (not just `gh` CLI), setting up SSH keys prevents `Permission denied (publickey)` errors.
+
+<Callout type="info" title="Already using gh auth?">
+`gh auth login` handles authentication for the GitHub CLI, but SSH keys are still needed when pushing via regular git commands or lazygit with an SSH remote.
+</Callout>
+
+**1. Generate an SSH key:**
+
+```sh title="Terminal"
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Press Enter to accept the default location (`~/.ssh/id_ed25519`). You can set a passphrase or leave it empty.
+
+<Callout type="warn" title="Keep the default filename">
+Don't rename the key file unless you know how to configure SSH to find it. Stick with `id_ed25519`.
+</Callout>
+
+**2. Start the SSH agent and add your key:**
+
+```sh title="Terminal"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+**3. Copy your public key:**
+
+```sh title="Terminal"
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy the entire output.
+
+**4. Add the key to GitHub:**
+
+Go to **GitHub → Settings → SSH and GPG keys → New SSH key**. Paste your public key and save.
+
+![Image](/images/addsshkey.png)
+
+**5. Test your connection:**
+
+```sh title="Terminal"
+ssh -T git@github.com
+```
+
+You should see a message like "Hi username! You've successfully authenticated..."
+![Image](/images/lazygit-ssh.png)
+
+
+**6. Check your remote URL:**
+
+```sh title="Terminal"
+git remote -v
+```
+
+If it shows `https://github.com/...` and you want to use SSH, switch it:
+
+```sh title="Terminal"
+git remote set-url origin git@github.com:OWNER/REPO.git
+```
+
+Replace `OWNER/REPO` with your fork (e.g., `yourusername/arc-docs`).
+
+  </div>
+
   <div className="step">
 Fork and Clone [Repository](https://github.com/Autonomous-Robotics-Carleton/arc-docs).
 
@@ -279,6 +387,108 @@ Open [VSCode](https://code.visualstudio.com) (Or your preferred editor):
           ```
   </div>
 </div>
+
+<div id="verify-setup" />
+
+## Verify Your Setup
+
+Before diving in, run these quick checks to make sure everything is configured:
+
+```sh title="Terminal"
+# Git identity set?
+git config --global --get user.name
+git config --global --get user.email
+
+# SSH key exists?
+ls -la ~/.ssh
+
+# SSH agent has your key?
+ssh-add -l
+
+# GitHub connection works?
+ssh -T git@github.com
+
+# lazygit installed?
+lazygit --version
+```
+
+If any of these fail, revisit the relevant section above.
+
+<div id="troubleshooting" />
+
+## Troubleshooting
+
+<Accordions>
+<Accordion title="Permission denied (publickey)">
+This means Git can't authenticate with GitHub over SSH. Common fixes:
+
+1. **Check if your key is loaded:**
+   ```sh
+   ssh-add -l
+   ```
+   If it says "no identities", add your key:
+   ```sh
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/id_ed25519
+   ```
+
+2. **Verify GitHub has your public key:**
+   ```sh
+   cat ~/.ssh/id_ed25519.pub
+   ```
+   Compare with what's in GitHub → Settings → SSH and GPG keys.
+
+3. **Test the connection:**
+   ```sh
+   ssh -T git@github.com
+   ```
+
+4. **Check your remote uses SSH (not HTTPS):**
+   ```sh
+   git remote -v
+   ```
+   If it shows `https://`, switch to SSH:
+   ```sh
+   git remote set-url origin git@github.com:OWNER/REPO.git
+   ```
+</Accordion>
+
+<Accordion title="src refspec main does not match any">
+This usually means you're trying to push but there's no commit yet, or the branch name doesn't match.
+
+1. **Check your current state:**
+   ```sh
+   git status
+   git branch
+   ```
+
+2. **If there's no commit yet, create one:**
+   ```sh
+   git add .
+   git commit -m "chore: initial commit"
+   ```
+
+3. **Push to the correct branch:**
+   ```sh
+   git push -u origin main
+   ```
+
+4. **If your branch is called `master` but remote expects `main`:**
+   ```sh
+   git branch -M main
+   git push -u origin main
+   ```
+</Accordion>
+
+<Accordion title="Author identity unknown">
+Git doesn't know who you are. Set your identity:
+```sh
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+See [Set Your Git Identity](#git-identity) for details.
+</Accordion>
+</Accordions>
 
 ## Get Involved
 
