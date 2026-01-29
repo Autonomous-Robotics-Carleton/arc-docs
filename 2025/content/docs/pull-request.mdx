@@ -5,6 +5,15 @@ icon: GitPullRequestCreate
 ---
 
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
+import { Callout } from "fumadocs-ui/components/callout";
+
+<Callout type="warn" title="Getting 'Author identity unknown' errors?">
+If git or lazygit complains about unknown author identity, you need to set your global Git name and email first. See the [Git identity setup](/docs/installation#git-identity) in the installation guide, or run:
+```sh
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+</Callout>
 
 <Callout>
   Just in case you forgot: Rebasing onto `main` before continuing work is the

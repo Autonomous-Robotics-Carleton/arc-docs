@@ -235,6 +235,31 @@ You should see the following:
 ```
     </div>
 
+  <div className="step" id="git-identity">
+### Set Your Git Identity (Required)
+
+Git needs your name and email to attach to every commit you make. Without this, you'll see errors like `"Author identity unknown"` or `"Please tell me who you are"` when you try to commit—especially if you're using [lazygit](https://github.com/jesseduffield/lazygit).
+
+Run these commands to set your identity globally:
+
+```sh title="Terminal"
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
+Verify it worked:
+
+```sh title="Terminal"
+git config --global --get user.name
+git config --global --get user.email
+```
+
+<Callout type="info" title="Privacy tip">
+If you'd rather not expose your real email, you can use GitHub's private "noreply" email address. Find it in your [GitHub email settings](https://github.com/settings/emails) under "Keep my email addresses private".
+</Callout>
+
+  </div>
+
   <div className="step">
 Fork and Clone [Repository](https://github.com/Autonomous-Robotics-Carleton/arc-docs).
 
@@ -242,6 +267,7 @@ Fork and Clone [Repository](https://github.com/Autonomous-Robotics-Carleton/arc-
 # Fork and clone the ARC docs repo to your GitHub account, then open it
 gh repo fork Autonomous-Robotics-Carleton/arc-docs --clone
 cd arc-docs
+cd 2025
 pnpm dev # start the dev server
 ```
 
