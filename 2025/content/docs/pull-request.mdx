@@ -7,12 +7,10 @@ icon: GitPullRequestCreate
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { Callout } from "fumadocs-ui/components/callout";
 
-<Callout type="warn" title="Getting 'Author identity unknown' errors?">
-If git or lazygit complains about unknown author identity, you need to set your global Git name and email first. See the [Git identity setup](/docs/installation#git-identity) in the installation guide, or run:
-```sh
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-```
+<Callout type="warn" title="Common push/commit errors?">
+- **"Author identity unknown"** — Set your Git name/email. See [Git identity setup](/docs/installation#git-identity).
+- **"Permission denied (publickey)"** — Your SSH key isn't configured. See [GitHub SSH setup](/docs/installation#github-ssh-setup).
+- **"src refspec main does not match any"** — No commits yet or branch name mismatch. See [Troubleshooting](/docs/installation#troubleshooting).
 </Callout>
 
 <Callout>
