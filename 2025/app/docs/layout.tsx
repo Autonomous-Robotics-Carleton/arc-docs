@@ -1,10 +1,14 @@
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
+import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import { baseOptions } from '@/lib/layout.shared';
 import { source } from '@/lib/source';
 
 export default function Layout({ children }: LayoutProps<'/docs'>) {
   return (
-    <DocsLayout tree={source.pageTree} {...baseOptions()} sidebar={{enabled: true}}>
+    <DocsLayout
+      tree={source.pageTree}
+      {...baseOptions()}
+      nav={{ ...baseOptions().nav, mode: 'top' }}
+    >
       {children}
     </DocsLayout>
   );
