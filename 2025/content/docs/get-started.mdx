@@ -7,6 +7,7 @@ icon: Info
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Callout } from "fumadocs-ui/components/callout";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 ## Something needs fixing? Want to add a new feature?
 
@@ -103,9 +104,10 @@ Check out this excellent guide by freeCodeCamp:
 </Callout>
 
 ---
-<div className='steps [&_h2]:step'>
 
-## Learn the Fork and Pull Model
+<Steps>
+<Step>
+### Learn the Fork and Pull Model
 
 The [Fork and Pull Model](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models) is used to merge external contributions into the project.
 
@@ -116,18 +118,20 @@ The [Fork and Pull Model](https://docs.github.com/en/pull-requests/collaborating
 </Accordions>
 
 Our codebase is constantly changing and evolving. Keep your fork up-to-date with the main repository with `gh repo sync Autonomous-Robotics-Carleton/arc-docs`.
+</Step>
 
-
-
-## Pick an Issue
+<Step>
+### Pick an Issue
 
 Comment on an issue on the project board that you're interested in to be assigned, or create one for yourself.
 
 Alternatively, you can also look at the open issues and see if there's anything that you can help with which interests you.
 
 Make sure to let us know that you're interested in working on an issue by commenting on it.
+</Step>
 
-## Create a Branch
+<Step>
+### Create a Branch
 Branch from `main` with the following name format:
 
 `yourname/<issue-type>/<issue-number>-<issue-name-kebab-cased>`.
@@ -148,5 +152,5 @@ Please See the [Conventional Commits](/docs/conventional-commits) to learn more.
 ### 🎉 Great work! Now that your commits follow the proper convention, you’re ready to open a Pull Request.  
 
 Please see the [Pull Request Guidelines](/docs/pull-request) to learn how to submit your changes.
-
-</div>
+</Step>
+</Steps>

@@ -7,6 +7,9 @@ icon: SquareTerminal
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Callout } from "fumadocs-ui/components/callout";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { File, Folder, Files } from 'fumadocs-ui/components/files';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
 <Callout type="warn" title="Windows users: Install WSL first">
 If you're on Windows, you'll need to install Windows Subsystem for Linux (WSL) before proceeding. See the WSL installation section below.
@@ -51,8 +54,9 @@ You can still access the Windows filesystem from Linux and vice versa and avoid 
   </Accordion>
 </Accordions>
 
-<div className="steps">
-  <div className="step">
+<Steps>
+  <Step>
+  ### Enable Windows Features
   Enable [essential Windows features](https://winaero.com/bash-ubuntu-windows-10-fall-creators-update/) to enable WSL.
     
     <kbd> Win+R</kbd> to open Run dialog, then:
@@ -73,10 +77,10 @@ After restart, launch 'Microsoft Store', and search 'Linux'.
 
 Choose a [distro](https://github.com/sirredbeard/awesome-wsl) to install. We recommend [Ubuntu](https://ubuntu.com/desktop/wsl) (non-LTS).
 
-  </div>
+  </Step>
 
-  <div className="step">
-    Create your UNIX account.
+  <Step>
+  ### Create Your UNIX Account
 
     Keep your password short and simple for now. You'll need to type it often to install packages.
     <Callout type="warn" title="Don't forget your UNIX username & password">
@@ -112,10 +116,11 @@ Choose a [distro](https://github.com/sirredbeard/awesome-wsl) to install. We rec
       user@MSI:~$
       ```
 
-  </div>
+  </Step>
 
-  <div className="step">
-  <kbd> Ctrl+ ,</kbd> to open settings, and set the default profile to Ubuntu.
+  <Step>
+  ### Configure Terminal Settings
+  <kbd>Ctrl+,</kbd> to open settings, and set the default profile to Ubuntu.
   
 ![Image](/images/wslsettings.png)
 
@@ -131,13 +136,14 @@ Update the system:
     ```
 
     Struggling with linux commands? Check out our [Linux Cheats](/docs/linux-cheat) for a quick reference.
-  </div>
-</div>
+  </Step>
+</Steps>
 
 ## Install Package Managers
 
-<div className="steps">
-<div className="step">
+<Steps>
+<Step>
+### Clean and Install pnpm
 
 Clean existing system files. You can always re-install these later.
 
@@ -174,11 +180,10 @@ Check [nodejs.org](https://nodejs.org/en/blog/release/v24.9.0) for the latest ve
 </Callout>
 
 
-</div>
+</Step>
 
- <div className="step">
-
-## Configure [GitHub CLI](https://github.com/cli/cli#installation)
+<Step>
+### Configure GitHub CLI
 
 
 [Create a GitHub account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) if you don't already have one.
@@ -233,9 +238,9 @@ You should see the following:
 ✔ Configured git protocol
 ✔ Logged in as yourgithubusername
 ```
-    </div>
+</Step>
 
-  <div className="step" id="git-identity">
+<Step>
 ### Set Your Git Identity (Required)
 
 Git needs your name and email to attach to every commit you make. Without this, you'll see errors like `"Author identity unknown"` or `"Please tell me who you are"` when you try to commit—especially if you're using [lazygit](https://github.com/jesseduffield/lazygit).
@@ -257,10 +262,9 @@ git config --global --get user.email
 <Callout type="info" title="Privacy tip">
 If you'd rather not expose your real email, you can use GitHub's private "noreply" email address. Find it in your [GitHub email settings](https://github.com/settings/emails) under "Keep my email addresses private".
 </Callout>
+</Step>
 
-  </div>
-
-  <div className="step" id="install-lazygit">
+<Step>
 ### Install lazygit
 
 [lazygit](https://github.com/jesseduffield/lazygit) is a terminal UI for git that makes commits, branches, and rebases much easier.
@@ -297,10 +301,9 @@ choco install lazygit
 </Tabs>
 
 If your distro isn't listed, check the [official releases page](https://github.com/jesseduffield/lazygit/releases).
+</Step>
 
-  </div>
-
-  <div className="step" id="github-ssh-setup">
+<Step>
 ### GitHub SSH Setup (Recommended for Pushing)
 
 If you plan to push code using `git push` or lazygit (not just `gh` CLI), setting up SSH keys prevents `Permission denied (publickey)` errors.
@@ -365,11 +368,10 @@ git remote set-url origin git@github.com:OWNER/REPO.git
 ```
 
 Replace `OWNER/REPO` with your fork (e.g., `yourusername/arc-docs`).
+</Step>
 
-  </div>
-
-  <div className="step">
-Fork and Clone [Repository](https://github.com/Autonomous-Robotics-Carleton/arc-docs).
+<Step>
+### Fork and Clone the Repository
 
 ```sh title="Terminal"
 # Fork and clone the ARC docs repo to your GitHub account, then open it
@@ -385,10 +387,46 @@ Open [VSCode](https://code.visualstudio.com) (Or your preferred editor):
           # And install all recommended extensions
           code .
           ```
-  </div>
-</div>
+</Step>
+</Steps>
+
+## Project Structure
+
+After cloning, you'll find this structure:
+
+<Files>
+  <Folder name="arc-docs" defaultOpen>
+    <Folder name="2025" defaultOpen>
+      <Folder name="app">
+        <Folder name="docs" />
+        <File name="layout.tsx" />
+        <File name="global.css" />
+      </Folder>
+      <Folder name="content">
+        <Folder name="docs" />
+      </Folder>
+      <Folder name="lib">
+        <File name="source.ts" />
+      </Folder>
+      <Folder name="public" />
+      <File name="package.json" />
+      <File name="tsconfig.json" />
+    </Folder>
+  </Folder>
+</Files>
 
 <div id="verify-setup" />
+
+## Required Tools Summary
+
+<TypeTable
+  type={{
+    pnpm: { description: 'Package manager', type: 'string', default: 'Latest' },
+    node: { description: 'Node.js runtime', type: 'string', default: '22.x LTS' },
+    gh: { description: 'GitHub CLI', type: 'string', default: 'Latest' },
+    lazygit: { description: 'Git TUI (optional)', type: 'string', default: 'Latest' },
+  }}
+/>
 
 ## Verify Your Setup
 
