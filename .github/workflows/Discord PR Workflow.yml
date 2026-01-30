@@ -7,6 +7,8 @@ on:
       - reopened
       - ready_for_review
       - closed
+    branches:    # Optional: explicitly only notify for PRs targeting main
+      - main
 
 jobs:
   notify:
@@ -17,19 +19,24 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           ACTION="${{ github.event.action }}"
-          TITLE="${{ github.event.pull_request.title }}"
+          TITLE=$(echo "${{ github.event.pull_request.title }}" | sed 's/"/\\"/g')
           URL="${{ github.event.pull_request.html_url }}"
           AUTHOR="${{ github.event.pull_request.user.login }}"
           BASE="${{ github.event.pull_request.base.ref }}"
+          TIMESTAMP="${{ github.event.pull_request.updated_at }}"
 
           if [[ "$ACTION" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
             STATUS="🎉 PR merged"
+            COLOR=5763719
           elif [[ "$ACTION" == "closed" ]]; then
             STATUS="❌ PR closed"
+            COLOR=15548997
           elif [[ "$ACTION" == "ready_for_review" ]]; then
             STATUS="👀 PR ready for review"
+            COLOR=3447003
           else
             STATUS="📬 PR $ACTION"
+            COLOR=16776960
           fi
 
           curl -H "Content-Type: application/json" \
@@ -39,8 +46,9 @@ jobs:
             \"embeds\": [{
               \"title\": \"$TITLE\",
               \"url\": \"$URL\",
-              \"description\": \"**Author:** $AUTHOR\n**Target:** $BASE\"
+              \"timestamp\": \"$TIMESTAMP\",
+              \"color\": $COLOR,
+              \"description\": \"**Author:** [$AUTHOR](https://github.com/$AUTHOR)\n**Target:** $BASE\"
             }]
           }" \
           $DISCORD_WEBHOOK_URL
-

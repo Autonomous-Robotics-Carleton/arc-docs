@@ -16,9 +16,10 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           ACTION="${{ github.event.action }}"
-          TITLE="${{ github.event.issue.title }}"
+          TITLE=$(echo "${{ github.event.issue.title }}" | sed 's/"/\\"/g')
           URL="${{ github.event.issue.html_url }}"
           AUTHOR="${{ github.event.issue.user.login }}"
+          TIMESTAMP="${{ github.event.issue.updated_at }}"
 
           curl -H "Content-Type: application/json" \
           -X POST \
@@ -27,8 +28,9 @@ jobs:
             \"embeds\": [{
               \"title\": \"$TITLE\",
               \"url\": \"$URL\",
-              \"description\": \"**Author:** $AUTHOR\"
+              \"timestamp\": \"$TIMESTAMP\",
+              \"color\": 15105570,
+              \"description\": \"**Author:** [$AUTHOR](https://github.com/$AUTHOR)\"
             }]
           }" \
           $DISCORD_WEBHOOK_URL
-
