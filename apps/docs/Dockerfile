@@ -24,7 +24,7 @@ COPY apps/docs ./apps/docs
 RUN pnpm --filter arc-docs build
 
 # Deploy creates a standalone copy with real (not symlinked) node_modules
-RUN pnpm --filter arc-docs deploy /deploy --prod
+RUN pnpm --filter arc-docs deploy --legacy /deploy --prod
 RUN cp -r /app/apps/docs/.next /deploy/.next
 RUN cp -r /app/apps/docs/public /deploy/public
 
