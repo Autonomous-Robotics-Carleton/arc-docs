@@ -8,31 +8,31 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: 'autonomy-stack',
-    title: 'Autonomy Stack',
+    id: "autonomy-stack",
+    title: "Meow Meow ",
     description:
-      'Full self-driving software pipeline including perception, planning, and control modules for autonomous racing.',
-    tags: ['ROS2', 'Python', 'C++'],
+      "Full self-driving software pipeline including perception, planning, and control modules for autonomous racing.",
+    tags: ["ROS2", "Python", "C++"],
   },
   {
-    id: 'perception',
-    title: 'Perception System',
+    id: "perception",
+    title: "Meow Meow 1 ",
     description:
-      'LiDAR and camera fusion for real-time object detection and track boundary recognition at high speeds.',
-    tags: ['Computer Vision', 'LiDAR', 'Deep Learning'],
+      "LiDAR and camera fusion for real-time object detection and track boundary recognition at high speeds.",
+    tags: ["Computer Vision", "LiDAR", "Deep Learning"],
   },
   {
-    id: 'simulator',
-    title: 'Racing Simulator',
+    id: "simulator",
+    title: "Meow Meow 2",
     description:
-      'Custom simulation environment for testing autonomous driving algorithms before deployment on hardware.',
-    tags: ['Simulation', 'Unreal Engine', 'ROS2'],
+      "Custom simulation environment for testing autonomous driving algorithms before deployment on hardware.",
+    tags: ["Simulation", "Unreal Engine", "ROS2"],
   },
   {
-    id: 'vehicle-platform',
-    title: 'Vehicle Platform',
+    id: "vehicle-platform",
+    title: "Meow Meow 3",
     description:
-      'Modified 1/10 scale RC car with custom sensor mounts, compute platform, and drive-by-wire system.',
-    tags: ['Hardware', 'Embedded', 'CAD'],
+      "Modified 1/10 scale RC car with custom sensor mounts, compute platform, and drive-by-wire system.",
+    tags: ["Hardware", "Embedded", "CAD"],
   },
 ];
