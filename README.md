@@ -153,6 +153,103 @@ arc-docs/                     # Nx monorepo root
 
 ---
 
+# ➕ Adding a New App or Library
+
+This repo uses **Nx** + **pnpm workspaces**. All apps live in `apps/`, shared code in `libs/`.
+
+## Add a new app
+
+1. Create the app directory with its own `package.json`:
+
+```bash
+mkdir -p apps/web
+```
+
+2. Add a `package.json` inside it:
+
+```json
+{
+  "name": "arc-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
+```
+
+3. Add a `project.json` to register it with Nx:
+
+```json
+{
+  "name": "web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "dev": { "command": "next dev", "options": { "cwd": "apps/web" } },
+    "build": { "command": "next build", "options": { "cwd": "apps/web" }, "outputs": ["{projectRoot}/.next"] },
+    "start": { "command": "next start", "options": { "cwd": "apps/web" }, "dependsOn": ["build"] }
+  }
+}
+```
+
+4. Install dependencies and run:
+
+```bash
+pnpm install
+npx nx dev web
+```
+
+## Add a shared library
+
+1. Create the lib:
+
+```bash
+mkdir -p libs/config
+```
+
+2. Add a `libs/config/package.json`:
+
+```json
+{
+  "name": "@arc/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts"
+}
+```
+
+3. Use it from any app by adding to that app's `package.json`:
+
+```json
+{
+  "dependencies": {
+    "@arc/config": "workspace:*"
+  }
+}
+```
+
+4. Run `pnpm install` and import as usual:
+
+```ts
+import { something } from '@arc/config';
+```
+
+## Useful Nx commands
+
+| Command | What it does |
+|---|---|
+| `npx nx dev <app>` | Run dev server for an app |
+| `npx nx build <app>` | Build an app |
+| `npx nx lint <app>` | Lint an app |
+| `npx nx show projects` | List all registered projects |
+| `npx nx graph` | Open interactive dependency graph |
+| `npx nx run-many -t build` | Build all projects |
+
+---
+
 # 📘 License
 
 This project is licensed under the **MIT License**.
@@ -161,9 +258,7 @@ This project is licensed under the **MIT License**.
 
 # 🎉 Thanks for Contributing!
 
-Whether you’re fixing typos, writing docs, or creating new tutorials —
+Whether you're fixing typos, writing docs, or creating new tutorials —
 **your work helps drive ARC forward.**
 
 If you have questions, open an issue or reach out to the ARC Team!
-
-```
