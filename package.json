@@ -1,0 +1,17 @@
+{
+  "name": "arc-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.23.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:docs": "pnpm --filter arc-docs dev",
+    "build:docs": "pnpm --filter arc-docs build",
+    "lint:docs": "pnpm --filter arc-docs lint"
+  },
+  "devDependencies": {
+    "nx": "^22.4.5"
+  }
+}

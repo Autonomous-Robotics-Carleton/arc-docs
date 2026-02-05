@@ -41,7 +41,7 @@ This repository contains:
    cd arc-docs
 ---
 
-All documentation source code lives inside the **`2025/` directory**.
+This is an **Nx monorepo**. Documentation source code lives in **`apps/docs/`**.
 
 ---
 
@@ -50,72 +50,52 @@ All documentation source code lives inside the **`2025/` directory**.
 Contributors **do NOT need Docker**.
 Docker is used only in production via CI/CD.
 
-Everything you need is inside the **2025/** project.
-
 ---
 
-## 📌 Requirements
+## 📌 Prerequisites
 
-Install:
-
-* **Node.js 20**
-* **pnpm** (via Corepack)
+* **Node.js 20+**
 * **Git**
 
-Enable pnpm if needed:
-
 ```bash
-corepack enable
+corepack enable        # activates pnpm (version pinned in package.json)
+pnpm install           # installs all workspace dependencies
 ```
-
----
-
-## 🛠 Install Dependencies
-
-```bash
-cd 2025
-pnpm install
-```
-
-This uses `pnpm-lock.yaml` to ensure all contributors use identical dependency versions.
 
 ---
 
 ## ▶️ Run the Dev Server
 
 ```bash
-pnpm dev
+npx nx dev docs        # or: pnpm dev:docs
 ```
 
-Site is now live at:
-
-```
-http://localhost:3000
-```
+Site is now live at `http://localhost:3000`
 
 ---
 
 ## 🧪 Lint + Build
 
 ```bash
-pnpm lint
-pnpm build
+npx nx build docs
+npx nx lint docs
 ```
 
 ---
+
 ## 2️⃣ Make Your Changes
 
 Docs live in:
 
 ```
-2025/content/
+apps/docs/content/
 ```
 
 UI + logic:
 
 ```
-2025/app/
-2025/lib/
+apps/docs/app/
+apps/docs/lib/
 ```
 
 ---
@@ -124,7 +104,7 @@ UI + logic:
 
 ```bash
 pnpm install
-pnpm dev
+npx nx dev docs
 ```
 ---
 
@@ -155,18 +135,19 @@ Contributors never touch Docker.
 # 🏗 Project Structure
 
 ```
-arc-docs/
-│
-├── 2025/                 # All documentation source code
-│   ├── app/              # Next.js app directory
-│   ├── content/          # MDX documentation pages
-│   ├── public/           # Static assets
-│   ├── lib/              # Utility functions
-│   ├── next.config.ts
-│   ├── tailwind.config.ts
-│   └── package.json
-│
-├── .github/workflows/    # CI & Docker build pipelines
+arc-docs/                     # Nx monorepo root
+├── apps/
+│   └── docs/                 # Fumadocs / Next.js docs app
+│       ├── app/              # Next.js App Router
+│       ├── content/          # MDX documentation pages
+│       ├── public/           # Static assets
+│       ├── lib/              # Utility functions
+│       ├── components/       # React components
+│       ├── next.config.mjs
+│       └── package.json
+├── nx.json                   # Nx workspace config
+├── pnpm-workspace.yaml       # pnpm workspace config
+├── .github/workflows/        # CI & Docker build pipelines
 └── README.md
 ```
 

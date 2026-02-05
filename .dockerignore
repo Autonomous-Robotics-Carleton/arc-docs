@@ -1,0 +1,10 @@
+node_modules
+.next
+.nx
+.git
+.gitignore
+*.md
+LICENSE
+.github
+.claude
+.DS_Store
