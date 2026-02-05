@@ -2,13 +2,12 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 
-# Enable corepack to get pnpm
 RUN corepack enable
 
-# Copy files needed for install + postinstall
-COPY package.json pnpm-lock.yaml source.config.ts ./
+# Copy workspace config + app manifest for install
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY apps/docs/package.json apps/docs/source.config.ts ./apps/docs/
 
-# Install dependencies (runs postinstall: fumadocs-mdx)
 RUN pnpm install --frozen-lockfile
 
 # --- Build stage ---
@@ -19,10 +18,15 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN corepack enable
 
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY --from=deps /app ./
+COPY apps/docs ./apps/docs
 
-RUN pnpm build
+RUN pnpm --filter arc-docs build
+
+# Deploy creates a standalone copy with real (not symlinked) node_modules
+RUN pnpm --filter arc-docs deploy /deploy --prod
+RUN cp -r /app/apps/docs/.next /deploy/.next
+RUN cp -r /app/apps/docs/public /deploy/public
 
 # --- Runtime stage ---
 FROM node:20-alpine AS runner
@@ -31,14 +35,10 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 
-# Non-root user
 RUN addgroup -g 1001 nodejs \
   && adduser -u 1001 -G nodejs -s /bin/sh -D nextjs
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /deploy ./
 
 USER nextjs
 EXPOSE 3000

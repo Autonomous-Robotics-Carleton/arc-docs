@@ -3,20 +3,13 @@
   "version": "0.0.0",
   "private": true,
 
-  "engines": {
-    "node": "20.x",
-    "pnpm": "10.x"
-  },
-
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbo",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "lint": "eslint .",
-
-    "clean": "rimraf node_modules .next .turbo",
-    "setup": "pnpm install --frozen-lockfile && pnpm dev"
+    "clean": "rimraf node_modules .next .turbo"
   },
 
   "dependencies": {
