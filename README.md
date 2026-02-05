@@ -1,10 +1,10 @@
 # 🚗 ARC Docs — Autonomous Robotics Carleton  
 
 <p align="center">
-  <img src="https://img.shields.io/github/last-commit/Autonomous-Robotics-Carleton/arc-docs?color=blue&style=for-the-badge" />
-  <img src="https://img.shields.io/github/contributors/Autonomous-Robotics-Carleton/arc-docs?color=green&style=for-the-badge" />
-  <img src="https://img.shields.io/github/issues/Autonomous-Robotics-Carleton/arc-docs?color=orange&style=for-the-badge" />
-  <img src="https://img.shields.io/github/issues-pr/Autonomous-Robotics-Carleton/arc-docs?color=purple&style=for-the-badge" />
+  <img src="https://img.shields.io/github/last-commit/Autonomous-Robotics-Carleton/2026?color=blue&style=for-the-badge" />
+  <img src="https://img.shields.io/github/contributors/Autonomous-Robotics-Carleton/2026?color=green&style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues/Autonomous-Robotics-Carleton/2026?color=orange&style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-pr/Autonomous-Robotics-Carleton/2026?color=purple&style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" />
 </p>
 
@@ -37,8 +37,8 @@ This repository contains:
 
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/arcarleton/arc-docs.git
-   cd arc-docs
+   git clone https://github.com/Autonomous-Robotics-Carleton/2026.git
+   cd 2026
 ---
 
 This is an **Nx monorepo**. Documentation source code lives in **`apps/docs/`**.
@@ -124,8 +124,8 @@ This repository uses **GitHub Actions + GitHub Container Registry (GHCR)**.
 * Builds the production Docker image
 * Pushes it to GHCR:
 
-  * `ghcr.io/autonomous-robotics-carleton/arc-docs:latest`
-  * `ghcr.io/autonomous-robotics-carleton/arc-docs:<commit-sha>`
+  * `ghcr.io/autonomous-robotics-carleton/2026:latest`
+  * `ghcr.io/autonomous-robotics-carleton/2026:<commit-sha>`
 * ARC infrastructure auto-deploys the new version to **arcarleton.ca** via Watchtower
 
 Contributors never touch Docker.
@@ -135,7 +135,7 @@ Contributors never touch Docker.
 # 🏗 Project Structure
 
 ```
-arc-docs/                     # Nx monorepo root
+2026/                             # Nx monorepo root
 ├── apps/
 │   └── docs/                 # Fumadocs / Next.js docs app
 │       ├── app/              # Next.js App Router

@@ -98,7 +98,7 @@ If emailing, include `[SECURITY]` in the subject line.
 
 ## 8. Scope
 
-This policy applies to the `arc-docs` repository and the documentation and scripts hosted within it.
+This policy applies to the `2026` repository and the documentation and scripts hosted within it.
 
 Exclusions (out of scope):
 

@@ -51,8 +51,8 @@ jobs:
           file: ./apps/docs/Dockerfile
           push: true
           tags: |
-            ghcr.io/autonomous-robotics-carleton/arc-docs:latest
-            ghcr.io/autonomous-robotics-carleton/arc-docs:${{ github.sha }}
+            ghcr.io/autonomous-robotics-carleton/2026:latest
+            ghcr.io/autonomous-robotics-carleton/2026:${{ github.sha }}
             
       - name: Trigger Watchtower Update
         if: github.ref == 'refs/heads/main'
