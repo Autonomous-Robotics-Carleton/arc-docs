@@ -1,0 +1,31 @@
+{
+  "name": "web",
+  "sourceRoot": "apps/web",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "apps/web"
+      }
+    },
+    "dev": {
+      "command": "next dev --turbo --port 3001",
+      "options": {
+        "cwd": "apps/web"
+      }
+    },
+    "start": {
+      "command": "next start",
+      "options": {
+        "cwd": "apps/web"
+      }
+    },
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "apps/web"
+      }
+    }
+  }
+}

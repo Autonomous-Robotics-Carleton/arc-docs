@@ -1,0 +1,92 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import ArcLogo from '@/components/ui/ArcLogo';
+import NavIcon from '@/components/ui/NavIcon';
+
+const NAV_ITEMS = [
+  { label: 'ABOUT US', href: '/' },
+  { label: 'PROJECTS', href: '/projects' },
+  { label: 'CONTACT', href: '/contact' },
+] as const;
+
+export default function Header() {
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <header className="fixed top-0 left-0 z-50 w-full">
+      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10 lg:px-16">
+        {/* Logo */}
+        <Link href="/" aria-label="ARC Home">
+          <ArcLogo className="h-10 w-auto text-white md:h-12" />
+        </Link>
+
+        {/* Desktop nav */}
+        <ul className="hidden items-center gap-10 md:flex lg:gap-16">
+          {NAV_ITEMS.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={`group flex items-center gap-2.5 text-sm tracking-widest transition-opacity duration-200 ${
+                    active ? 'text-white' : 'text-white/60 hover:text-white'
+                  }`}
+                >
+                  <NavIcon filled={active} />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Mobile toggle */}
+        <button
+          className="flex flex-col gap-1.5 md:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle navigation"
+          aria-expanded={mobileOpen}
+        >
+          <span
+            className={`h-0.5 w-6 bg-white transition-transform ${mobileOpen ? 'translate-y-2 rotate-45' : ''}`}
+          />
+          <span
+            className={`h-0.5 w-6 bg-white transition-opacity ${mobileOpen ? 'opacity-0' : ''}`}
+          />
+          <span
+            className={`h-0.5 w-6 bg-white transition-transform ${mobileOpen ? '-translate-y-2 -rotate-45' : ''}`}
+          />
+        </button>
+      </nav>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="border-t border-white/10 bg-black px-6 pb-8 pt-4 md:hidden">
+          <ul className="flex flex-col gap-6">
+            {NAV_ITEMS.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`flex items-center gap-2.5 text-sm tracking-widest ${
+                      active ? 'text-white' : 'text-white/60'
+                    }`}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <NavIcon filled={active} />
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </header>
+  );
+}

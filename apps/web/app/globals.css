@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-heading: 'Chakra Petch', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-bg: #000000;
+  --color-fg: #ffffff;
+  --color-muted: #888888;
+  --color-border: #333333;
+  --color-accent: #ff0000;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+}
