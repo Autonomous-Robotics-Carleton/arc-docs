@@ -38,3 +38,29 @@
     letter-spacing: 0.02em;
   }
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Route transition overlay */
+.transition-overlay {
+  transition: transform 800ms;
+}
+
+.transition-overlay.covering {
+  transition-timing-function: ease-in;
+}
+
+.transition-overlay.revealing {
+  transition-timing-function: ease-out;
+}

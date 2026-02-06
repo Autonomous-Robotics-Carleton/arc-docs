@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Chakra_Petch, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import ClientProviders from '@/components/providers/ClientProviders';
 
 const chakraPetch = Chakra_Petch({
   subsets: ['latin'],
@@ -37,7 +38,9 @@ export default function RootLayout({
       lang="en"
       className={`${chakraPetch.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ClientProviders>{children}</ClientProviders>
+      </body>
     </html>
   );
 }
