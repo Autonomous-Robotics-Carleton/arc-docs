@@ -1,91 +1,100 @@
 'use client';
 
-import { useCallback, useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import LoadingScreen from '@/components/sections/LoadingScreen';
-import VerticalLine from '@/components/ui/VerticalLine';
-import { useScrollReveal, useStaggerReveal } from '@/hooks/useScrollReveal';
-import { teamMembers } from '@/data/team';
+import ArcLogo from '@/components/ui/ArcLogo';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function HomePage() {
-  const [loaded, setLoaded] = useState(false);
-  const handleComplete = useCallback(() => setLoaded(true), []);
-
-  const aboutRef = useScrollReveal<HTMLDivElement>();
-  const teamHeadingRef = useScrollReveal<HTMLDivElement>({ delay: 0.1 });
-  const teamGridRef = useStaggerReveal<HTMLDivElement>('[data-reveal-item]', {
-    stagger: 0.08,
-  });
+  const heroRef = useScrollReveal<HTMLDivElement>();
+  const identityRef = useScrollReveal<HTMLDivElement>({ delay: 0.1 });
+  const missionRef = useScrollReveal<HTMLDivElement>({ delay: 0.1 });
+  const sponsorsRef = useScrollReveal<HTMLDivElement>({ delay: 0.1 });
 
   return (
     <>
-      <LoadingScreen onComplete={handleComplete} />
+      <Header />
 
-      <div
-        className={`transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-      >
-        <Header />
+      <main>
+        {/* ── Hero with large ARC logo ── */}
+        <section className="relative px-6 pt-28 md:px-10 lg:px-16">
+          <div
+            ref={heroRef}
+            className="mx-auto max-w-[1440px] py-16 md:py-24 lg:py-32"
+          >
+            <ArcLogo className="h-20 w-auto text-white md:h-28 lg:h-36" />
+          </div>
+        </section>
 
-        <main>
-          {/* ── About Us Section ── */}
-          <section className="relative flex min-h-screen items-center px-6 pt-28 md:px-10 lg:px-16">
-            <div className="mx-auto flex max-w-[1440px] gap-8 lg:gap-16">
-              {/* Left decorative line */}
-              <VerticalLine className="hidden h-[500px] shrink-0 md:flex" />
+        {/* ── Identity Section ── */}
+        <section className="relative px-6 md:px-10 lg:px-16">
+          <div className="mx-auto max-w-[1440px] py-16 md:py-20">
+            <div
+              ref={identityRef}
+              className="flex flex-col gap-6 md:flex-row md:items-start md:gap-16 lg:gap-24"
+            >
+              <h2 className="shrink-0 text-3xl md:text-4xl lg:text-5xl">
+                IDENTITY
+              </h2>
+              <p className="max-w-xl text-sm leading-relaxed text-white/70 md:text-base">
+                ARC is a student-run engineering club at Carleton University focused
+                on building autonomous robotics systems. We give students hands-on
+                experience in designing, building, and testing robots while
+                fostering interdisciplinary collaboration across engineering,
+                computer science, and design disciplines.
+              </p>
+            </div>
+          </div>
+        </section>
 
-              {/* Content */}
-              <div ref={aboutRef} className="flex flex-col justify-center py-16">
-                <h1 className="text-5xl leading-[1.1] md:text-7xl lg:text-8xl">
-                  ABOUT US
-                </h1>
-                <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
-                  Founded in late 2024, the Autonomous Racing Club (ARC) at Carleton
-                  University builds self-driving race cars that compete at the cutting
-                  edge of robotics, AI, and motorsport engineering.
-                </p>
+        {/* ── Mission Section ── */}
+        <section className="relative px-6 md:px-10 lg:px-16">
+          <div className="mx-auto max-w-[1440px] py-16 md:py-20">
+            <div
+              ref={missionRef}
+              className="flex flex-col gap-6 md:flex-row md:items-start md:gap-16 lg:gap-24"
+            >
+              <h2 className="shrink-0 text-3xl md:text-4xl lg:text-5xl">
+                MISSION
+              </h2>
+              <p className="max-w-xl text-sm leading-relaxed text-white/70 md:text-base">
+                Our mission is to create a collaborative and inclusive space for
+                students to explore and contribute to the future of autonomous
+                vehicles: developing practical skills, valuable experience,
+                meaningful connections, and cutting edge projects along the way.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Sponsors Section ── */}
+        <section className="relative px-6 pb-24 md:px-10 md:pb-32 lg:px-16 lg:pb-40">
+          <div className="mx-auto max-w-[1440px]">
+            <div ref={sponsorsRef}>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl">SPONSORS</h2>
+              {/* Placeholder for sponsor logos */}
+              <div className="mt-12 min-h-[200px] md:mt-16 md:min-h-[300px]">
+                {/* Sponsors will go here */}
               </div>
             </div>
-          </section>
+          </div>
+        </section>
+      </main>
 
-          {/* ── Our Team Section ── */}
-          <section className="relative px-6 py-24 md:px-10 md:py-32 lg:px-16 lg:py-40">
-            <div className="mx-auto flex max-w-[1440px] gap-8 lg:gap-16">
-              <VerticalLine className="hidden h-[400px] shrink-0 md:flex" />
+      <Footer />
 
-              <div className="w-full">
-                <div ref={teamHeadingRef}>
-                  <h2 className="text-5xl leading-[1.1] md:text-7xl lg:text-8xl">
-                    OUR TEAM
-                  </h2>
-                  <p className="mt-4 text-base text-white/70 md:text-lg">
-                    A multidisciplinary team of engineers, designers, and researchers.
-                  </p>
-                </div>
-
-                <div
-                  ref={teamGridRef}
-                  className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-                >
-                  {teamMembers.map((member) => (
-                    <div
-                      key={member.name}
-                      data-reveal-item
-                      className="group border border-white/10 p-6 transition-colors hover:border-white/30"
-                    >
-                      {/* Placeholder avatar */}
-                      <div className="mb-4 h-16 w-16 bg-white/10" />
-                      <h3 className="text-lg not-italic">{member.name}</h3>
-                      <p className="mt-1 text-sm text-white/50">{member.role}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <Footer />
+      {/* ── Bottom Marquee ── */}
+      <div className="overflow-hidden border-t border-white/10 bg-black py-4">
+        <div className="animate-marquee flex whitespace-nowrap">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span
+              key={i}
+              className="mx-4 text-4xl tracking-wider text-white/20 md:text-5xl lg:text-6xl"
+            >
+              AHEAD OF THE CURVE&nbsp;&nbsp;AHEAD OF THE CURVE&nbsp;&nbsp;
+            </span>
+          ))}
+        </div>
       </div>
     </>
   );
