@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import ArcLogo from '@/components/ui/ArcLogo';
 import NavIcon from '@/components/ui/NavIcon';
+import TransitionLink from '@/components/ui/TransitionLink';
 
 const NAV_ITEMS = [
   { label: 'ABOUT US', href: '/' },
@@ -20,9 +20,9 @@ export default function Header() {
     <header className="fixed top-0 left-0 z-50 w-full">
       <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10 lg:px-16">
         {/* Logo */}
-        <Link href="/" aria-label="ARC Home">
+        <TransitionLink href="/" aria-label="ARC Home">
           <ArcLogo className="h-10 w-auto text-white md:h-12" />
-        </Link>
+        </TransitionLink>
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-10 md:flex lg:gap-16">
@@ -30,7 +30,7 @@ export default function Header() {
             const active = pathname === item.href;
             return (
               <li key={item.href}>
-                <Link
+                <TransitionLink
                   href={item.href}
                   className={`group flex items-center gap-2.5 text-sm tracking-widest transition-opacity duration-200 ${
                     active ? 'text-white' : 'text-white/60 hover:text-white'
@@ -38,7 +38,7 @@ export default function Header() {
                 >
                   <NavIcon filled={active} />
                   {item.label}
-                </Link>
+                </TransitionLink>
               </li>
             );
           })}
@@ -71,7 +71,7 @@ export default function Header() {
               const active = pathname === item.href;
               return (
                 <li key={item.href}>
-                  <Link
+                  <TransitionLink
                     href={item.href}
                     className={`flex items-center gap-2.5 text-sm tracking-widest ${
                       active ? 'text-white' : 'text-white/60'
@@ -80,7 +80,7 @@ export default function Header() {
                   >
                     <NavIcon filled={active} />
                     {item.label}
-                  </Link>
+                  </TransitionLink>
                 </li>
               );
             })}
