@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import VerticalLine from '@/components/ui/VerticalLine';
 import NavIcon from '@/components/ui/NavIcon';
+import ContactTypography from '@/components/ui/ContactTypography';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function ContactPage() {
@@ -16,24 +17,11 @@ export default function ContactPage() {
       <main>
         <section className="relative flex min-h-screen items-start px-6 pt-28 md:px-10 lg:px-16">
           <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-12 py-16 lg:flex-row lg:gap-24">
-            {/* Left side: decorative line + heading */}
+            {/* Left side: decorative line + SVG typography */}
             <div className="flex gap-6 lg:w-2/5">
               <VerticalLine className="hidden h-[400px] shrink-0 md:flex" />
               <div ref={leftRef}>
-                <h1 className="text-4xl leading-[1.1] md:text-6xl lg:text-7xl">
-                  <span className="text-white/60">{'//'}WE</span>
-                  <br />
-                  WOULD
-                  <br />
-                  LOVE TO
-                  <br />
-                  <span className="font-extrabold">HEAR</span>
-                  <br />
-                  <span className="font-extrabold">FROM</span>
-                  <br />
-                  <span className="text-white/60">&gt;&gt;</span>
-                  <span className="font-extrabold">YOU</span>
-                </h1>
+                <ContactTypography className="h-auto w-full max-w-[280px] md:max-w-[320px] lg:max-w-[353px]" />
               </div>
             </div>
 
